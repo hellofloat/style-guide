@@ -1,0 +1,26 @@
+{
+  "name": "style-guide",
+  "version": "0.0.1",
+  "description": "float style guide",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hellofloat/style-guide.git"
+  },
+  "keywords": [],
+  "author": "Bruce Lim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hellofloat/style-guide/issues"
+  },
+  "homepage": "https://github.com/hellofloat/style-guide#readme",
+  "devDependencies": {
+    "css-loader": "^0.22.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.4"
+  }
+}
