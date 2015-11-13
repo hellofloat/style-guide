@@ -1,11 +1,19 @@
 'use strict';
 
-require('./component.css');
+import './component.css';
 
-module.exports = function() {
-    var el = document.createElement('h1');
+import React from 'react';
 
-    el.innerHTML = '<a class="button button-primary" href="javascript:;">Hello World</a>';
+class HelloMessage extends React.Component {
+    render() {
+        return (
+            <h1>
+                <a className="button button-primary" href="javascript:;">
+                    Hello World
+                </a>
+            </h1>
+        );
+    }
+}
 
-    return el;
-};
+export default HelloMessage;

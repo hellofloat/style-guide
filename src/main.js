@@ -1,8 +1,15 @@
 'use strict';
 
-require('./styles/normalize.css');
-require('./styles/skeleton.css');
-require('./styles/custom.css');
+import './styles/normalize.css';
+import './styles/skeleton.css';
+import './styles/custom.css';
 
-var component = require('./components/component');
-document.body.appendChild(component());
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+import Component from './components/component';
+
+ReactDOM.render(  
+    <Component />,
+    document.getElementById('app')
+);
