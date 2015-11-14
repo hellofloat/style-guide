@@ -1,6 +1,8 @@
 var path = require('path');
 
 module.exports = {
+    cache: true,
+    
     entry: path.resolve(__dirname, 'src/main.js'),
 
     output: {
@@ -13,5 +15,10 @@ module.exports = {
             { test: /\.(js|jsx)?$/, exclude: /node_modules/, loader: "babel?cacheDirectory" },
             { test: /\.css$/, loader: 'style-loader!css-loader' }
         ]
+    },
+
+    devServer: {
+        contentBase: path.resolve(__dirname, 'build'),
+        historyApiFallback: true
     }
 };

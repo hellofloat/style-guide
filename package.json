@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --progress --profile --colors",
+    "watch": "webpack-dev-server --hot --inline --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,7 +27,8 @@
     "babel-preset-stage-2": "^6.1.18",
     "css-loader": "^0.22.0",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.4"
+    "webpack": "^1.12.4",
+    "webpack-dev-server": "^1.12.1"
   },
   "dependencies": {
     "babel-runtime": "^6.1.18",
