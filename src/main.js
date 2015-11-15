@@ -8,7 +8,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './app.jsx';
-console.log(App);
+// console.log(App);
 // import Layout from './layout';
 // import Component from './components/component';
 
