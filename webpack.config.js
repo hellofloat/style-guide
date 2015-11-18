@@ -6,8 +6,8 @@ module.exports = {
     entry: path.resolve(__dirname, 'src/main.js'),
 
     output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, 'www'),
+        filename: 'js/bundle.js'
     },
 
     module: {
@@ -18,7 +18,7 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: path.resolve(__dirname, 'build'),
+        contentBase: path.resolve(__dirname, 'www'),
         historyApiFallback: true
     }
 };
