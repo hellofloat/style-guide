@@ -4,6 +4,16 @@ import React from 'react';
 
 export default class Signup extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {tos: props.initialTOS};
+    }
+
+    onCheckTOS() {
+        var tos = this.state.tos == '' ? 'checked' : '';
+        this.setState({tos: tos});
+    }
+
     render() {
 
         var logostyle = {
@@ -12,83 +22,50 @@ export default class Signup extends React.Component {
 
         return (
             <div className="signup row ui segment raised teal tall">
-
                 <div className="ui top attached menu teal">
+                    <div className="ui icon item">
+                        <img src="img/logo-medium.png" style={logostyle} />
+                    </div>
 
                     <div className="ui icon item right floated">
                         Sign Up Form
                     </div>
-
-
-                    {/*
-                    <div className="ui icon item">
-                        <i className="calculator icon"></i>
-                    </div>
-
-                    <div className="ui icon item">
-                        <i className="camera retro icon"></i>
-                    </div>
-
-                    <div className="ui icon item">
-                        <i className="calculator icon"></i>
-                    </div>
-
-                    <div className="ui icon item">
-                        <i className="gift icon"></i>
-                    </div>
-
-                    <div className="ui icon item">
-                    <img src="img/logo-medium.png" style={logostyle} />
-                    </div>
-                    */}
-
-                    {/*menu bar items can go here*/}
-
                 </div>
                 <div className="ui bottom attached tertiary segment">
-
-
-
-
                     <div className="ui form">
-                        
                         <div className="field">
                             <label>Email</label>
 
+                            <div className="ui left icon input">
+                                <input type="text" placeholder="your@email.com" />
+                                <i className="mail outline icon"></i>
+                            </div>
+
+                            {/*
                             <div className="ui icon input">
                                 <input type="text" placeholder="you@host.com" />
                                 <i className="inverted circular mail outline icon"></i>
                             </div>
-
+                            */}
                         </div>
 
-                        <br />
-
                         <div className="inline field">
-                            <div className="ui checkbox">
-                                <input type="checkbox" tabindex="0" className="hidden" />
+                            <div className="ui checkbox" onClick={this.onCheckTOS.bind(this)}>
+                                <input type="checkbox" tabIndex="0" className="hidden" checked={this.state.tos} />
                                 <label>I agree to the terms and conditions</label>
                             </div>
                         </div>
-
-                    </div>
-
-
-                    {/*
-                    <div className="ui left labeled button" tabindex="0">
-                        <a className="ui basic right pointing label">
-                        2,048
-                        </a>
-                        <div className="ui button">
-                            <i className="heart icon"></i> Like
+                        
+                        <div className="field">
+                            <button className="ui teal button">Sign Up</button>
                         </div>
                     </div>
-
-                    <button className="button-primary">Join the waiting list</button>
-                    */}
 
                 </div>
             </div>
         );
     }
 }
+
+Signup.propTypes = { initialTOS: React.PropTypes.string };
+Signup.defaultProps = { initialTOS: '' };
