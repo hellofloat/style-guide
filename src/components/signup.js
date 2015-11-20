@@ -1,12 +1,15 @@
 'use strict';
 
 import React from 'react';
+import superagent from 'superagent';
+
 
 export default class Signup extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {tos: props.initialTOS};
+        this.validation = false;
     }
 
     onCheckTOS() {
@@ -14,11 +17,50 @@ export default class Signup extends React.Component {
         this.setState({tos: tos});
     }
 
+    validationMessage() {
+        return (
+            <div className="ui basic red pointing prompt label transition visible">
+                Please enter your email
+            </div>
+        );
+    }
+
+    onClickSignUp() {
+        var email = this.refs.email.value;
+
+        if(email.length == 0) {
+            this.validation = true;
+            this.forceUpdate();
+
+            // alert('please enter an email');
+            return;
+        }
+
+// console.log(superagent);
+console.log(email);
+        var input = {
+            email: email
+        };
+console.log(input);
+
+console.log(document.cookies);
+
+//             superagent
+//                 .post('https://qa-api.hellofloat.com:4443/user')
+//                 .send(input)
+//                 .end(function(error, res) {
+// console.log(res.body);
+//                 });
+    }
+
     render() {
 
         var logostyle = {
             width: "30px"
         };
+
+        var validation = this.validation ? this.validationMessage() : '';
+        var fieldClass = this.validation ? 'field error' : 'field';
 
         return (
             <div className="signup row ui segment raised teal tall">
@@ -33,20 +75,16 @@ export default class Signup extends React.Component {
                 </div>
                 <div className="ui bottom attached tertiary segment">
                     <div className="ui form">
-                        <div className="field">
+                        <div className={fieldClass}>
                             <label>Email</label>
 
                             <div className="ui left icon input">
-                                <input type="text" placeholder="your@email.com" />
+                                <input type="text" placeholder="your@email.com" ref="email" />
                                 <i className="mail outline icon"></i>
                             </div>
 
-                            {/*
-                            <div className="ui icon input">
-                                <input type="text" placeholder="you@host.com" />
-                                <i className="inverted circular mail outline icon"></i>
-                            </div>
-                            */}
+                            {validation}
+
                         </div>
 
                         <div className="inline field">
@@ -57,7 +95,7 @@ export default class Signup extends React.Component {
                         </div>
                         
                         <div className="field">
-                            <button className="ui teal button">Sign Up</button>
+                            <button className="ui teal button" onClick={this.onClickSignUp.bind(this)}>Sign Up</button>
                         </div>
                     </div>
 
