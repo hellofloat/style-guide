@@ -3,13 +3,22 @@
 import React from 'react';
 import superagent from 'superagent';
 
+// import floatSDK from 'float';
+// const float = floatSDK.Float;
 
 export default class Signup extends React.Component {
 
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {tos: props.initialTOS};
         this.validation = false;
+
+        // float.init({
+        //     hosts: {
+        //         passwords: "qa-api.hellofloat.com:4443",
+        //         users: "qa-api.hellofloat.com:4443"
+        //     },
+        // });
     }
 
     onCheckTOS() {
@@ -28,7 +37,10 @@ export default class Signup extends React.Component {
     onClickSignUp() {
         var email = this.refs.email.value;
 
-        if(email.length == 0) {
+        // simple email regexp
+        var re = new RegExp('[a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?');
+
+        if(email.length == 0 || !re.test(email)) {
             this.validation = true;
             this.forceUpdate();
 
@@ -36,21 +48,82 @@ export default class Signup extends React.Component {
             return;
         }
 
-// console.log(superagent);
-console.log(email);
         var input = {
             email: email
         };
-console.log(input);
 
-console.log(document.cookies);
 
-//             superagent
-//                 .post('https://qa-api.hellofloat.com:4443/user')
-//                 .send(input)
-//                 .end(function(error, res) {
-// console.log(res.body);
-//                 });
+        superagent
+            .post('https://qa-api.hellofloat.com:4443/user')
+            .send(input)
+            .end(function(error, res) {
+                if(error) {
+                    if(error.status == 400) {
+
+                        superagent
+                            .post('https://qa-api.hellofloat.com:4443/login')
+                            .send(input)
+                            .end(function(error, res) {
+                                if(error) {
+                                    console.log(error);
+                                    return;
+                                }
+
+                                var user = res.body;
+
+                                if(user.email == input.email) {
+                                    document.location.assign("/#/profile?email="+input.email);
+
+                                    // alert('found user');
+                                }
+
+                                // console.log(user);
+                            })
+                    }
+
+
+                    // console.log('error ------------------------------------')
+                    // console.log(Object.keys(error))
+                    // console.log(error);
+                    // console.log(error.original);
+                    console.log(error.response);
+                    // console.log(error.status);
+                    // 
+                    // status - 400
+                    // 
+                    // 
+                    return;
+                }
+
+                console.log(res.body);
+            });
+
+
+        // float.createUser({
+        //     email: "test+1@hellofloat.com"
+        // }, function(error, user) {
+        //     if (error) {
+
+        //         float.login({
+        //             email: "test+1@hellofloat.com"
+        //         }, function(error, user) {
+        //             if(error) {
+        //                 console.log(error);
+        //                 return;
+        //             }
+
+        //             console.log('login user');
+        //             console.log(user);
+
+        //             document.location.assign("/#/profile?email=test+1@hellofloat.com");
+        //         });
+
+        //         return;
+        //     }
+
+        //     console.log('Created user:');
+        //     console.log(user);
+        // });
     }
 
     render() {
@@ -107,3 +180,4 @@ console.log(document.cookies);
 
 Signup.propTypes = { initialTOS: React.PropTypes.string };
 Signup.defaultProps = { initialTOS: '' };
+Signup.contextTypes = { router: function() { return React.PropTypes.func.isRequired; } };
