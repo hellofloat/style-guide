@@ -65,7 +65,7 @@ export default class Signup extends React.Component {
                             .send(input)
                             .end(function(error, res) {
                                 if(error) {
-                                    console.log(error);
+                                    // console.log(error);
                                     return;
                                 }
 
@@ -86,7 +86,7 @@ export default class Signup extends React.Component {
                     // console.log(Object.keys(error))
                     // console.log(error);
                     // console.log(error.original);
-                    console.log(error.response);
+                    // console.log(error.response);
                     // console.log(error.status);
                     // 
                     // status - 400
@@ -95,7 +95,8 @@ export default class Signup extends React.Component {
                     return;
                 }
 
-                console.log(res.body);
+                document.location.assign("/#/profile?email="+input.email);
+                // console.log(res.body);
             });
 
 
