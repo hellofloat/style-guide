@@ -6,6 +6,8 @@ import superagent from 'superagent';
 // import floatSDK from 'float';
 // const float = floatSDK.Float;
 
+// http://elemental-ui.com/misc
+
 export default class Signup extends React.Component {
 
     constructor(props, context) {
